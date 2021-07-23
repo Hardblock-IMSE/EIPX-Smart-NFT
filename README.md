@@ -1,7 +1,7 @@
 ---
 eip: <to be assigned>
 title: Smart Non Fungible Token (SmartNFT)
-author: <a list of the author's or authors' name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): Javier Arcenegui (@GitHubUsername), Rosario Arjona <foo@bar.com>, Roberto Román (@GitHubUsername) and Iluminada Baturone (@GitHubUsername)>
+author: <a list of the author's or authors' name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): Javier Arcenegui <arcenegui@imse-cnm.csic.es>, Rosario Arjona <arjona@imse-cnm.csic.es>, Roberto Román <roman@imse-cnm.csic.es> and Iluminada Baturone <lumi@imse-cnm.csic.es>
 discussions-to: https://github.com/Hardblock-IMSE/Smart-Non-Fungible-Token
 status: Draft
 type: Standards Track
