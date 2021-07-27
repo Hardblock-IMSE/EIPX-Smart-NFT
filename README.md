@@ -32,9 +32,19 @@ An IoT device is a dynamic asset that can change of operating modes, which can b
 The engagements of the device with an owner and with a user are carried out after mutual authentication protocols based on elliptic curve Diffie-Hellman key exchange protocols. These protocols allow a key agreement between the device and its owner, in the one side, and the device and its user, in the other side. Since the establishment of a shared secret is very important for a secure communication between them, we propose the inclu-sion of the attributes hashK_OD, hashK_UD, and dataEngage. The first two attributes define, respectively, the hash of the secret shared between the device and its owner and between the device and its user. Devices, owners, and users should check they are using the correct shared secrets. The attribute dataEngage defines the public data needed for the agreement. If the mutual authentication fails, dataEngage allows detecting which parts failed.
 Table 1 shows the attributes of Smart NFTs. The standard attributes approved and op-erator (which help the owner to transfer ERC-721 NFTs to other owners) are omitted in Ta-ble 1 because they are not in the scope of this work. Of course, they can be considered also in the proposed NFTs.
 
---
-Type : Name of variable : Defined by ERC-721
---
+| Type | Name of variable | Defined by ERC-721 |
+|--|--|--|
+| uint256 | tokenId | Yes |
+| address | owner | Yes |
+| address | device | No |
+| address | user | No |
+| enum | state | No |
+| uint256 | hashK_OD | No |
+| uint256 | HashK_UD | No |
+| uint256 | owner | No |
+| uint256 | owner | No |
+| uint256 | owner | No |
+|--|--|--|
  
 ## Rationale
 The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
