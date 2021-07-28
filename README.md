@@ -33,18 +33,18 @@ An IoT device is a dynamic asset that can change of operating modes, which can b
  
 The engagements of the device with an owner and with a user are carried out after mutual authentication protocols based on elliptic curve Diffie-Hellman key exchange protocols. These protocols allow a key agreement between the device and its owner, in the one side, and the device and its user, in the other side. Since the establishment of a shared secret is very important for a secure communication between them, we propose the inclu-sion of the attributes hashK_OD, hashK_UD, and dataEngage. The first two attributes define, respectively, the hash of the secret shared between the device and its owner and between the device and its user. Devices, owners, and users should check they are using the correct shared secrets. The attribute dataEngage defines the public data needed for the agreement. If the mutual authentication fails, dataEngage allows detecting which parts failed.
 
-| Type | Name of variable | Defined by ERC-721 |
-|--|--|--|
-| uint256 | tokenId | Yes |
-| address | owner | Yes |
-| address | device | No |
-| address | user | No |
-| enum | state | No |
-| uint256 | hashK_OD | No |
-| uint256 | HashK_UD | No |
-| uint256 | owner | No |
-| uint256 | owner | No |
-| uint256 | owner | No |
+| Type | Name of variable | Defined by ERC-721 | Optional |
+|--|--|--|--|
+| uint256 | tokenId | Yes | No |
+| address | owner | Yes | No |
+| address | device | No | No |
+| address | user | No | No |
+| enum | state | No | No |
+| uint256 | hashK_OD | No | No |
+| uint256 | HashK_UD | No | No |
+| uint256 | owner | No | No |
+| uint256 | owner | No | No |
+| uint256 | owner | No | No |
  
  
 This table shows the attributes of Smart NFTs. The standard attributes approved and operator (which help the owner to transfer ERC-721 NFTs to other owners) are omitted in the table because they are the same that in the ERC-721. Of course, they can be considered also in the proposed SmartNFT.
