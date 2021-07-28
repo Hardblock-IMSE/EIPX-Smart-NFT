@@ -37,14 +37,16 @@ The engagements of the device with an owner and with a user are carried out afte
 |--|--|--|--|
 | uint256 | tokenId | Yes | No |
 | address | owner | Yes | No |
-| address | device | No | No |
+| address | approved | Yes | Yes |
+| address | approvedForAll | Yes | Yes |
+| address | device | No | Yes* |
 | address | user | No | No |
 | enum | state | No | No |
-| uint256 | hashK_OD | No | No |
-| uint256 | HashK_UD | No | No |
-| uint256 | owner | No | No |
-| uint256 | owner | No | No |
-| uint256 | owner | No | No |
+| uint256 | hashK_OD | No | Yes |
+| uint256 | HashK_UD | No | Yes |
+| uint256 | dataEngagement | No | Yes |
+| uint256 | timeStamp | No | No |
+| uint256 | timeout | No | No |
  
  
 This table shows the attributes of Smart NFTs. The standard attributes approved and operator (which help the owner to transfer ERC-721 NFTs to other owners) are omitted in the table because they are the same that in the ERC-721. Of course, they can be considered also in the proposed SmartNFT.
