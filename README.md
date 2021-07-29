@@ -9,10 +9,6 @@ category (*only required for Standards Track): ERC
 created: 2021-04-22
 requires (*optional): 721
 ---
-
-## hola
- K<sub>OD</sub> = K<sub>O</sub> = K<sub>D</sub>
- 
 ## Simple Summary
 A Standar interface to Smart Non Fungible Tokens binded a IoT devices thats generate their own blockchain account.
 
