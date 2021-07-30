@@ -73,8 +73,8 @@ Since the establishment of a shared secret is very important for a secure commun
 | uint256 | timeStamp | No | No |
 | uint256 | timeout | No | No |
  
- 
-This table shows the attributes of Smart NFTs. The standard attributes approved and operator (which help the owner to transfer ERC-721 NFTs to other owners) are omitted in the table because they are the same that in the ERC-721. Of course, they can be considered also in the proposed SmartNFT.
+The atributes of don't need to be in the same struct, but is important tha existe coherence to know the data of the token easily. This organization is depending only by the designer of the smart contract and the characteristic of project. Like in the ERC721, the role of operator (aprovedForAll) is an attribute from the owner, because is the operator of an specefic owner, not is an atribute of the token. 
+
  
 ## Rationale
 The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
