@@ -76,7 +76,7 @@ Since the establishment of a shared secret is very important for a secure commun
 The atributes of don't need to be in the same struct, but is important tha existe coherence to know the data of the token easily. This organization is depending only by the designer of the smart contract and the characteristic of project. Like in the ERC721, the role of operator (aprovedForAll) is an attribute from the owner, because is the operator of an specefic owner, not is an atribute of the token. 
  
  
-´´´
+´´´solidity
  pragma solidity ^0.8.0;
 
 /// @title smartNFT: Harblock - ERC-721 Non-Fungible Token Standard based
