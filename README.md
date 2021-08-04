@@ -206,7 +206,7 @@ compatibility treatise may be rejected outright.
 Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.
 
 ## Reference Implementation
-A first version was presented on the special issue <b>Security, Trust and Privacy in New Computing Environments)</b> of <b>Sensors</b> magazine of <b>mdpi</b> editorial titled <b><k>Secure Combination of IoT and Blockchain by Physically Binding IoT Devices to Smart Non-Fungible Tokens Using PUFs</k></b> writted by the same author of this draft.
+A first version was presented on the special issue <b>Security, Trust and Privacy in New Computing Environments)</b> of <b>Sensors</b> magazine of <b>mdpi</b> editorial titled <b><k>Secure Combination of IoT and Blockchain by Physically Binding IoT Devices to Smart Non-Fungible Tokens Using PUFs</k></b> writted by the same authors of this draft.
 
 ## Security Considerations
 All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
