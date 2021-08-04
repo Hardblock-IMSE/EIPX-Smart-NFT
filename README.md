@@ -192,6 +192,7 @@ The atributes of don't need to be in the same struct, but is important tha exist
     function userBalanceOfAnOwner(address _addressUser, address _addressOwner) external view returns (uint256);
 }
 ```
+This interface is an extesion of the ERC721, and not is only compatible with the standard, this standard needs of ERC721 interface. This interface is available in https://eips.ethereum.org/EIPS/eip-721. Then metadata extension and enumaration extension are compatible and include in this draft.
  
 ## Rationale
 The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
