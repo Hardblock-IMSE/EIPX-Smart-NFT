@@ -197,16 +197,22 @@ This interface is an extesion of the ERC721, and not is only compatible with the
 ## Rationale
 This smartNFT was developed becouse the ERC721 standard do not take into account the users of an asset, only the ownership. In addition we decided implement a secure way to share a secret key confirmed with the consensus of the blockchain. In this way, device and owner, or device and user can be sure thar they are exchange information only with its interested.
  
+**Users Management Mechanism**
+
+**Secure Key Exchange Mechanism
+ 
+**ERC-721 Retro-compatibitlity**
+ 
 ## Backwards Compatibility
 All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. 
 The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards 
 compatibility treatise may be rejected outright.
 
 ## Test Cases
-Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Other EIPs can choose to include links to test cases if applicable.
+The test case presented on the article show below is addressed in <b>0x7eB5A03E7ED70ABf70fee48965D0411d37F335aC</b> and the code is available in <b>https://github.com/Hardblock-IMSE/Smart-Non-Fungible-Token</b>
 
 ## Reference Implementation
-A first version was presented on the special issue <b>Security, Trust and Privacy in New Computing Environments)</b> of <b>Sensors</b> magazine of <b>mdpi</b> editorial titled <b><k>Secure Combination of IoT and Blockchain by Physically Binding IoT Devices to Smart Non-Fungible Tokens Using PUFs</k></b> writted by the same authors of this draft.
+A first version was presented on the special issue <b>Security, Trust and Privacy in New Computing Environments)</b> of <b>Sensors</b> magazine of <b>mdpi</b> editorial titled <b><k>Secure Combination of IoT and Blockchain by Physically Binding IoT Devices to Smart Non-Fungible Tokens Using PUFs</k></b> writted by the same authors of this draft. The doi of this article is: <b>https://doi.org/10.3390/s21093119</b>
 
 ## Security Considerations
 All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
