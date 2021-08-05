@@ -177,6 +177,7 @@ This smartNFT was developed becouse the ERC721 standard do not take into account
 **Users Management Mechanism**
 
 **Secure Key Exchange Mechanism**
+ 
 The engagements of the device with an owner and with a user are carried out after mutual authentication protocols based on elliptic curve Diffie-Hellman key exchange protocols. These protocols allow a key agreement between the device and its owner, in the one side, and the device and its user, in the other side. 
  
 When the Smart NFT is created or when the owmnership is transfered, the operating mode of the device defined in the state is Waiting for owner. then the device saves in its memory the owner BCA address. Owner generate a pair of keys using secp256k1. A secret key (SK<sub>OD</sub>) and a Public Key (PK<sub>OD</sub>). To generate the key between owner and device (K<sub>OD</sub>) is need the public key of device (PK<sub>dev</sub>) and the point P such that PK<sub>OD</sub> = SK<sub>OD</sub>*P.
