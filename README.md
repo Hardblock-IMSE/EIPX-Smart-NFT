@@ -173,9 +173,15 @@ This interface is an extesion of the ERC721, and not is only compatible with the
  
 ## Rationale
 This smartNFT was developed becouse the ERC721 standard do not take into account the users of an asset, only the ownership. In addition we decided implement a secure way to share a secret key confirmed with the consensus of the blockchain. In this way, device and owner, or device and user can be sure thar they are exchange information only with its interested.
+
+**Secure Device binded to a SmartNFT**
+ 
+ An Non-Fungible token usually is associated to an passive asset like virtual o physical things. But it is not exist any standardized mechanism to bind a Non-Fungible token to an assets. This is interesting because the device know in any moment who is its owner o who can use it. Then its not only necesary a transference, but also need any kind of authentication to verify de transference. The device have more control of itself for example to revoke orders form a non authorized user, or dont work until the authentication with the user or the owner.
  
 **Users Management Mechanism**
 
+ We implement a new and usefull user management mechanism, in the last years a lot of project about vehicles sharings or assets sharing in general have been created and developed. 
+ 
 **Secure Key Exchange Mechanism**
  
 The engagements of the device with an owner and with a user are carried out after mutual authentication protocols based on elliptic curve Diffie-Hellman key exchange protocols. These protocols allow a key agreement between the device and its owner, in the one side, and the device and its user, in the other side. 
@@ -202,9 +208,7 @@ K<sub>UD</sub>=PK<sub>dev</sub>*SK<sub>UD</sub>=(SK<sub>dev</sub>*P)*SK<sub>UD</
  ![Figure 3 : Steps in successful owner and device muthual authentication](/Images/Figure3.PNG)
  
 Since the establishment of a shared secret is very important for a secure communication between them, we propose the inclusion of the attributes hashK_OD, hashK_UD, and dataEngage. The first two attributes define, respectively, the hash of the secret shared between the device and its owner and between the device and its user. Devices, owners, and users should check they are using the correct shared secrets. The attribute dataEngage defines the public data needed for the agreement. If the mutual authentication fails, dataEngage allows detecting which parts failed.
- 
-**ERC-721 Retro-compatibitlity**
- 
+  
 ## Backwards Compatibility
 All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. 
 The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards 
