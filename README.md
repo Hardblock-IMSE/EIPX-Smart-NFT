@@ -180,7 +180,7 @@ This smartNFT was developed becouse the ERC721 standard do not take into account
  
 **Users Management Mechanism**
 
- We implement a new and usefull user management mechanism, in the last years a lot of project about vehicles sharings or assets sharing in general have been created and developed. 
+ We implement a new and usefull user management mechanism, in the last years a lot of project about vehicles sharings or assets sharing in general have been created and developed. With the atribbute User, an asset can be assigned without loss the ownership of token. 
  
 **Secure Key Exchange Mechanism**
  
