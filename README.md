@@ -225,4 +225,4 @@ Regarding the security improvements implemented with respect to the ERC-721 stan
 
 
 ## Copyright
-Copyright and related rights waived via CC0
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
