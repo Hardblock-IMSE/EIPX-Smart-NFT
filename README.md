@@ -210,9 +210,7 @@ K<sub>UD</sub>=PK<sub>dev</sub>*SK<sub>UD</sub>=(SK<sub>dev</sub>*P)*SK<sub>UD</
 Since the establishment of a shared secret is very important for a secure communication between them, we propose the inclusion of the attributes hashK_OD, hashK_UD, and dataEngage. The first two attributes define, respectively, the hash of the secret shared between the device and its owner and between the device and its user. Devices, owners, and users should check they are using the correct shared secrets. The attribute dataEngage defines the public data needed for the agreement. If the mutual authentication fails, dataEngage allows detecting which parts failed.
   
 ## Backwards Compatibility
-All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. 
-The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards 
-compatibility treatise may be rejected outright.
+This implementation is an extension of ERC-721 standard, then is not only compatible with the standard, but also is a way to improve some of the actual NFT token based on the ERC-721 standard.
 
 ## Test Cases
 The test case presented on the article show below is addressed in <b>0x7eB5A03E7ED70ABf70fee48965D0411d37F335aC</b> and the code is available in <b>https://github.com/Hardblock-IMSE/Smart-Non-Fungible-Token</b>
@@ -221,7 +219,10 @@ The test case presented on the article show below is addressed in <b>0x7eB5A03E7
 A first version was presented on the special issue <b>Security, Trust and Privacy in New Computing Environments)</b> of <b>Sensors</b> magazine of <b>mdpi</b> editorial titled <b><k>Secure Combination of IoT and Blockchain by Physically Binding IoT Devices to Smart Non-Fungible Tokens Using PUFs</k></b> writted by the same authors of this draft. The doi of this article is: <b>https://doi.org/10.3390/s21093119</b>
 
 ## Security Considerations
-All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
+In this draft, a generic system has been proposed for the creation of non-fungible tokens with the possibility of being intelligent. Although it has been wanted to give a generic point of view based on the improvements to the current ERC-721 standard, such as the implementation of the user management mechanism. The main idea is to relate a physical device with a non-fungible token. This physical device should have the ability not only to generate a blockchain account from itself in a totally random way but also the ability to regenerate it, without share this information. In this way, identity theft is avoided and the system is completely genuine. In order to achieve this, it has been established that only the manufacturer of devices has the ability to create tokens, although as mentioned before it is only a recommendation, since it is intended to be backward compatible. In this way, the generated firmware will be unable to obtain this information. It is recommended that systems be used that allow each device to obtain the blockchain account from non-sensitive information such as the data helper using SRAM PUF. 
+Similarly, a secure key exchange system has been proposed, however the system is open to coexist with other types of key exchange. 
+Regarding the security improvements implemented with respect to the ERC-721 standard, without counting the previous mentions, a user management system is established, so the use of an asset or device does not affect the token's membership.
+
 
 ## Copyright
-Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+TODO: No se muy bien que poner aquí
