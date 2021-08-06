@@ -179,8 +179,8 @@ This smartNFT was developed becouse the ERC721 standard do not take into account
  An Non-Fungible token usually is associated to an passive asset like virtual o physical things. But it is not exist any standardized mechanism to bind a Non-Fungible token to an assets. This is interesting because the device know in any moment who is its owner o who can use it. Then its not only necesary a transference, but also need any kind of authentication to verify de transference. The device have more control of itself for example to revoke orders form a non authorized user, or dont work until the authentication with the user or the owner.
  
 **Users Management Mechanism**
-
- We implement a new and usefull user management mechanism, in the last years a lot of project about vehicles sharings or assets sharing in general have been created and developed. With the atribbute User, an asset can be assigned without loss the ownership of token. 
+ 
+We implement a new and usefull user management mechanism, in the last years a lot of project about vehicles sharings or assets sharing in general have been created and developed. In this way, we incorporate the blockchain account of the user of the token as another atribbute in order to distinguish between users, who employ the asset for an expecific application, and owners, who assign the token to users.
  
 **Secure Key Exchange Mechanism**
  
