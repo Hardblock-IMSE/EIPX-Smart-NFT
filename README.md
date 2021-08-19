@@ -45,13 +45,13 @@ An IoT device is a dynamic asset that can change of operating modes, which can b
 | uint256 | timeStamp | No | No |
 | uint256 | timeout | No | No |
  
-The atributes do not need to be in a given order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (aprovedForAll) is an attribute more linked to the owner than to the token. 
+The atributes do not need to be given in an specific order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (aprovedForAll) is an attribute more linked to the owner than to the token. 
  
 ```solidity
  pragma solidity ^0.8.0;
 
- /// @title smartNFT: Extension of ERC-721 Non-Fungible Token Standard. 
- interface smartNFT is ERC721{
+ /// @title SmartNFT: Extension of ERC-721 Non-Fungible Token Standard. 
+ interface SmartNFT is ERC721{
     /// @dev This emits when ownership of any NFT changes an user.
     ///  This event emits when the user of a token is transfered.
     ///  (`_addressUser` == 0) when a user is unassigned.
@@ -167,10 +167,10 @@ The atributes do not need to be in a given order. The designer of the smart cont
     function userBalanceOfAnOwner(address _addressUser, address _addressOwner) external view returns (uint256);
 }
 ```
-This interface is an extesion of the ERC721, and not is only compatible with the standard, this standard needs of ERC721 interface. This interface is available in https://eips.ethereum.org/EIPS/eip-721. Then metadata extension and enumaration extension are compatible and include in this draft.
+This interface is an extension of the ERC721, is compatible with the standard, and needs the ERC721 interface. ERC721 interface is available in https://eips.ethereum.org/EIPS/eip-721. Then, metadata and enumeration extensions are compatible and included in this draft.
  
 ## Rationale
-This smartNFT was developed becouse the ERC721 standard do not take into account the users of an asset, only the ownership. In addition we decided implement a secure way to share a secret key confirmed with the consensus of the blockchain. In this way, device and owner, or device and user can be sure thar they are exchange information only with its interested.
+This SmartNFT was developed because the ERC721 standard does not take into account the users of an asset, only the ownership. In addition we decided implement a secure way to share a secret key confirmed with the consensus of the blockchain. In this way, device and owner, or device and user can be sure thar they are exchange information only with its interested.
 
 **Secure Device binded to a SmartNFT**
  
