@@ -170,38 +170,42 @@ The atributes do not need to be given in an specific order. The designer of the 
 This interface is an extension of the ERC721, is compatible with the standard, and needs the ERC721 interface. ERC721 interface is available in https://eips.ethereum.org/EIPS/eip-721. Then, metadata and enumeration extensions are compatible and included in this draft.
  
 ## Rationale
-This SmartNFT was developed because the ERC721 standard does not define the "users" of an asset, only the "owners", and does not assign a blockchain account (BCA) address, "device" to the asset. Smart assets (for example IoT devices) are increasing nowdays and they are managed in a secure way if they are bound to SmartNFTs. SmartNFTs allow implementing a secure way to share a secret key between the owner and the device and between the user and the device, confirmed with the consensus of the blockchain. In this way, devices, owners, and users can be sure that they are exchanging information only with its interested parts.
+This SmartNFT was developed because the ERC721 standard does not define the "users" of an asset, only the "owners", and does not assign a blockchain account (BCA) address, "device", to the asset. Smart assets (for example IoT devices) are increasing nowdays and they are managed in a secure way if they are bound to SmartNFTs. SmartNFTs allow implementing a secure way to share a secret key between the owner and the device and between the user and the device, confirmed with the consensus of the blockchain. In this way, devices, owners, and users can ensure that they are exchanging information only with  trusted parts.
 
 **Secure Device bound to a SmartNFT**
  
-Current non-fungible tokens are associated with passive assets, either virtual or physical things, but they do not include any standardized mechanism to bind the non-fungible token to the asset. Bounding assets to NFTs is interesting because the "device" can know anytime its "owner" and "user". The "device" is an active part in any transfer of ownership and use. In addition, the "device" is smarter, for example to revoke orders from a non-authorized user, or to be inoperative until the authentication with the user or the owner.
+Current non-fungible tokens are associated with passive assets, either virtual or physical things, but they do not include any standardized mechanism to bind the non-fungible token to the asset. Bounding assets to NFTs is interesting because the "device" can know anytime its "owner" and "user". The "device" is an active part in any transfer of ownership and use. In addition, the "device" is smart, for example to revoke orders from a non-authorized user, or to be inoperative until the authentication with the user or the owner is carried out.
  
 **Users Management Mechanism**
  
-We implement a new and useful user management mechanism. In the last years a lot of project about vehicles sharings or assets sharing in general have been created and developed. In this way, we incorporate the blockchain account of the user of the token as another atribbute in order to distinguish between users, who employ the asset for an expecific application, and owners, who assign the token to users.
+SmartNFTs allow implementing a new and useful user management mechanism. In the last few years many projects concerning assets sharing (for example vehicles) have been created and developed. We incorporate the blockchain account of the user of the token as another attribute in order to distinguish between users, who employ the asset for an expecific application, and owners, who assign the token to users. Both users and owners can be traced by the blockchain.
  
 **Secure Key Exchange Mechanism**
  
-The engagements of the device with an owner and with a user are carried out after mutual authentication protocols based on elliptic curve Diffie-Hellman key exchange protocols. These protocols allow a key agreement between the device and its owner, in the one side, and the device and its user, in the other side. 
+The engagements of the device with an owner and a user are carried out after a mutual authentication protocol based on elliptic curve Diffie-Hellman key exchange protocol. This protocol allows a key agreement between the device and its owner, in the one side, and the device and its user, in the other side. 
  
-When the Smart NFT is created or when the owmnership is transfered, the operating mode of the device defined in the state is Waiting for owner. then the device saves in its memory the owner BCA address. Owner generate a pair of keys using secp256k1. A secret key (SK<sub>OD</sub>) and a Public Key (PK<sub>OD</sub>). To generate the key between owner and device (K<sub>OD</sub>) is need the public key of device (PK<sub>dev</sub>) and the point P such that PK<sub>OD</sub> = SK<sub>OD</sub>*P.
+When the SmartNFT is created or when the owmnership is transfered, the operating mode of the device defined by the token state is "waitingForOwner". Then, the device saves in its memory the owner BCA address. The owner generates a pair of keys using the elliptic curve secp256k1 and the primitive element P used on this curve: a secret key (SK<sub>OD</sub>) and a Public Key (PK<sub>OD</sub>), so that PK<sub>OD</sub> = SK<sub>OD</sub>*P. To generate the shared key between owner and device, (K<sub>O</sub>), the public key of the device, (PK<sub>dev</sub>), is employed:
  
-K<sub>OD</sub>=PK<sub>dev</sub>*SK<sub>OD</sub>
+K<sub>O</sub>=PK<sub>dev</sub>*SK<sub>OD</sub>
 
-Using startOwnerEngage, owner save PK<sub>OD</sub> and the hash of K<sub>OD</sub> in the smart contract. Owner send PK<sub>OD</sub> signed to device. The device check the sign to verify the identity of the owner and calculate K<sub>OD</sub> using P such that PK<sub>dev</sub> = SK<sub>dev</sub>*P.
+Using the function startOwnerEngagement, the owner saves PK<sub>OD</sub> and the hash of K<sub>O</sub> in the SmartNFT. The owner sends PK<sub>OD</sub> signed to device. The device checks the signature to verify the identity of the owner and calculates:
+ 
+K<sub>D</sub> = SK<sub>dev</sub>*PK<sub>OD</sub>:
 
-K<sub>OD</sub>=PK<sub>dev</sub>*SK<sub>OD</sub>=(SK<sub>dev</sub>*P)*SK<sub>OD</sub>= SK<sub>dev</sub>*(SK<sub>OD</sub>*P)=SK<sub>dev</sub>*PK<sub>OD</sub>
+If everything is correctly done, K<sub>O</sub> and K<sub>D</sub> are the same since:
+ 
+K<sub>O</sub>=PK<sub>dev</sub>*SK<sub>OD</sub>=(SK<sub>dev</sub>*P)*SK<sub>OD</sub>= SK<sub>dev</sub>*(SK<sub>OD</sub>*P)=SK<sub>dev</sub>*PK<sub>OD</sub>
 
-Using ownerEngage function, the device send K<sub>OD</sub> obtain and if it is the same Key then changes the state of the token to Engaged with owner and sends the event OwnerEngaged. Once the device receives the event, it changes its operation mode to Engaged with owner. This process is shown in Figure 2. From this moment, the device can be managed by the owner. 
+Using the function ownerEngagement, the device sends the K<sub>D</sub> obtained and if it is the same as K<sub>O</sub>, then the state of the token changes to "Engaged with owner" and the event OwnerEngaged is sent. Once the device receives the event, it changes its operation mode to "Engaged with owner". This process is shown in Figure 2. From this moment, the device can be managed by the owner. 
  
  ![Figure 2 : Steps in successful owner and device muthual authentication](/Images/Figure2.PNG)
  
-If the device consults the blockchain and the state of its Smart NFT is Waiting for user, the device saves in its memory the user BCA address. Then, a mutual authentication process is carried out with the user, as already done with the owner. If the user verifies the device, the user sends the transaction associated to the function startUserEngage to the smart contract. Analogously to starOwnerEngage this function save the public key generated by user PK<sub>UD</sub> and the hash of PK<sub>dev</sub>*SK<sub>UD</sub>.
-User send PK<sub>UD</sub> signed to device that check the signature an optionally check PK<sub>UD</sub> on the dataEngage attribute of its token. If verify its user, call userEngage function in the smartcontract with K<sub>UD</sub> such that
+If the device consults the blockchain and the state of its SmartNFT is "Waiting for user", the device saves in its memory the user BCA address. Then, a mutual authentication process is carried out with the user, as already done with the owner. If the user verifies the device, the user sends the transaction associated with the function startUserEngagement. As in starOwnerEngagement, this function saves the public key generated by the user, PK<sub>UD</sub>, and the hash of K<sub>O</sub>=PK<sub>dev</sub>*SK<sub>UD</sub>.
+The user sends PK<sub>UD</sub> signed to the device. The latter checks the signature and optionally checks PK<sub>UD</sub> on the attribute dataEngagement of its token. If the user is verified, the device calls the function userEngagement in the smartcontract with K<sub>UD</sub> as follows:
  
 K<sub>UD</sub>=PK<sub>dev</sub>*SK<sub>UD</sub>=(SK<sub>dev</sub>*P)*SK<sub>UD</sub>= SK<sub>dev</sub>*(SK<sub>UD</sub>*P)=SK<sub>dev</sub>*PK<sub>UD</sub>
 
- The smart contract compare if K<sub>UD</sub>=PK<sub>dev</sub>*SK<sub>UD</sub> and if it is equal, then changes the state of the token to Engaged with user and sends the event UserEngaged. Once the device receives the event, it changes its operation mode to Engaged with user. This process is shown in Figure 3. 
+The smart contract compare if K<sub>UD</sub>=PK<sub>dev</sub>*SK<sub>UD</sub> and if it is equal, then changes the state of the token to Engaged with user and sends the event UserEngaged. Once the device receives the event, it changes its operation mode to Engaged with user. This process is shown in Figure 3. 
 
  ![Figure 3 : Steps in successful owner and device muthual authentication](/Images/Figure3.PNG)
  
