@@ -36,8 +36,8 @@ A smart asset, for example an IoT device, is a dynamic asset with several operat
 | address | owner | Yes | No |
 | address | approved | Yes | Yes |
 | address | approvedForAll | Yes | Yes |
-| address | device | No | Yes* ¿No sería No?¿Qué significa el *?|
-| address | user | No | No |
+| address | asset | No | Yes |
+| address | user | No | Yes |
 | enum | state | No | No |
 | uint256 | hashK_OD | No | Yes |
 | uint256 | HashK_UD | No | Yes |
