@@ -48,7 +48,7 @@ A smart asset, for example an IoT device, is a dynamic asset with several operat
 The atributes do not need to be given in an specific order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (aprovedForAll) is an attribute more related to the owner than to the token. 
  
 ```solidity
- pragma solidity ^0.8.0;
+pragma solidity ^0.8.0;
 
  /// @title SmartNFT: Extension of ERC-721 Non-Fungible Token Standard. 
  interface SmartNFT is ERC721{
@@ -57,101 +57,102 @@ The atributes do not need to be given in an specific order. The designer of the 
     ///  (`_addressUser` == 0) when no user is assigned.
     event UserAssigned(uint256 indexed tokenID, address indexed _addressUser);
     
-    /// @dev This emits when user and device finish mutual authentication process successfully.
-    ///  This event emits when both the user and the device prove they share a secret communication channel.
+    /// @dev This emits when user and asset finish mutual authentication process successfully.
+    ///  This event emits when both the user and the asset prove they share a secret communication channel.
     event UserEngaged(uint256 indexed tokenID);
     
-    /// @dev This emits when owner and device finish mutual authentication process successfully.
-    ///  This event emits when both the owner and the device prove they share a secret communication channel.
+    /// @dev This emits when owner and asset finish mutual authentication process successfully.
+    ///  This event emits when both the owner and the asset prove they share a secret communication channel.
     event OwnerEngaged(uint256 indexed tokenID);
     
     /// @dev This emits when it is checked that the timeout has expired.
     ///  This event emits when the timestamp of the SmartNFT is not updated in timeout.
     event TimeoutAlarm(uint256 indexed tokenID);
 
-    /// @notice This function defines how the NFT is assigned as utility of a new user.
-    /// @dev Only the owner of the SmartNFT can assign a user provided that the state of the token is 
-    /// "engagedWithOwner","waitingForUser" or "engagedWithUser". The function changes the state of the token defined by "_tokenID" to
-    /// "waitingForUser" and sets the parameter "addressUser" to "_addressUser".
+    /// @notice This function defines how the NFT is assigned as utility of a new user if user is defined.
+    /// @dev Only the owner of the SmartNFT can assign a user provided. If asset is defined, then the state of the token must be
+    /// "engagedWithOwner","waitingForUser" or "engagedWithUser" and this function changes the state of the token defined by "_tokenID" to
+    /// "waitingForUser". If asset is not defined, set status tu "userAssigned". In both case, this function sets the parameter 
+    /// "addressUser" to "_addressUser". 
     /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _addressUser is the address of the new user.
     function setUser(uint256 _tokenId, address _addressUser) external; 
 
     /// @notice This function defines the initialization of the mutual authentication process between the owner and the asset.
-    /// @dev Only the owner of the token can start this authentication process provided that the state of the token is
-    /// "waitingForOwner". The function does not change the state of the token and saves "_dataEngagement" and "_hashK_O"
-    /// in the parameters of the token.
-    /// @param _tokenId is the tokenID of the SmartNFT bound to the device.
+    /// @dev Only the owner of the token can start this authentication process if asset is defined, This proccess provided that 
+    /// the state of the token is "waitingForOwner". The function does not change the state of the token and saves "_dataEngagement" 
+    /// and "_hashK_O" in the parameters of the token.
+    /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _dataEngagement is the public data proposed by the owner for the agreement of the shared key.
-    /// @param _hashK_O is the hash of the secret proposed by the owner to share with the device.
+    /// @param _hashK_O is the hash of the secret proposed by the owner to share with the asset.
     function startOwnerEngagement(uint256 _tokenId, uint256 _dataEngagement, uint256 _hashK_O) external;
  
-    /// @notice This function completes the mutual authentication process between the owner and the device.
-    /// @dev Only the device bound to the token can finish this authentication process provided that the state of the token is
+    /// @notice This function completes the mutual authentication process between the owner and the asset.
+    /// @dev Only the asset bound to the token can finish this authentication process provided that the state of the token is
     /// "waitingForOwner" and dataEngagement is different from 0. This function compares hashK_O saved in
-    /// the token with hashK_D. If they are equal then the state of token changes to "engagedWithOwner", dataEngagement is set to 0,
+    /// the token with hashK_A. If they are equal then the state of token changes to "engagedWithOwner", dataEngagement is set to 0,
     /// and the event "OwnerEngaged" is emitted.
-    /// @param _hashK_D is the hash of the secret generated by the device to share with the owner.
-    function ownerEngagement(uint256 _hashK_D) external; 
+    /// @param _hashK_A is the hash of the secret generated by the asset to share with the owner.
+    function ownerEngagement(uint256 _hashK_A) external; 
  
-    /// @notice This function defines the initialization of the mutual authentication process between the user and the device.
-    /// @dev Only the user of the token can start this authentication process provided that the state of token is
-    /// "waitingForUser". The function does not change the state of the token and saves "_dataEngagement" and "_hashK_U"
-    /// in the parameters of the token.
-    /// @param _tokenId is the tokenID of the SmartNFT bound to the device.
+    /// @notice This function defines the initialization of the mutual authentication process between the user and the asset.
+    /// @dev Only the user of the token can start this authentication process if asset and user are defined. This proccess provided
+    /// that the state of token is "waitingForUser". The function does not change the state of the token and saves "_dataEngagement" 
+    /// and "_hashK_U" in the parameters of the token.
+    /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _dataEngagement is the public data proposed by the user for the agreement of the shared key.
-    /// @param _hashK_U is the hash of the secret proposed by the user to share with the device.
+    /// @param _hashK_U is the hash of the secret proposed by the user to share with the asset.
     function startUserEngagement(uint256 _tokenId, uint256 _dataEngagement, uint256 _hashK_U) external;
     
-    /// @notice This function completes the mutual authentication process between the user and the device.
-    /// @dev Only the device bound to the token can finish this authentication process provided that the state of the token is
+    /// @notice This function completes the mutual authentication process between the user and the asset.
+    /// @dev Only the asset bound to the token can finish this authentication process provided that the state of the token is
     /// "waitingForUser" and dataEngage if different from 0. This function compares hashK_U saved in
-    /// the token with hashK_D. If they are equal then the state of token changes to "engagedWithUser", dataEngagement is set to 0,
+    /// the token with hashK_A. If they are equal then the state of token changes to "engagedWithUser", dataEngagement is set to 0,
     /// and the event "UserEngaged" is emitted.
-    /// @param _hashK_D is the hash of the secret generated by the device to share with the user.
-    function userEngagement(uint256 _hashK_D) external; 
+    /// @param _hashK_A is the hash of the secret generated by the asset to share with the user.
+    function userEngagement(uint256 _hashK_A) external; 
  
     /// @notice This function checks if the timeout has expired.
     /// @dev Everybody can call this function to check if the timeout has expired. The event "TimeoutAlarm" is emitted
     /// if the timeout has expired.
-    /// @param _tokenId is the tokenID of the SmartNFT bound to the device.
+    /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @return true if timeout has expired and false in other case.
     function checkTimeout(uint256 _tokenId) external returns (bool);
     
     /// @notice This function sets the value of timeout.
     /// @dev Only the owner of the token can set this value provided that the state of the token is "engagedWithOwner",
     /// "waitingForUser" or "engagedWithUser".
-    /// @param _tokenId is the tokenID of the SmartNFT bound to the device.
+    /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _timeout is the value to assign to timeout.
     function setTimeout(uint256 _tokenId, uint256 _timeout) external; 
     
     /// @notice This function updates the timestamp, thus avoiding the timeout alarm.
-    /// @dev Only the device bound to the token can update its own timestamp.
+    /// @dev Only the asset bound to the token can update its own timestamp.
     function updateTimestamp() external; 
     
     /// @notice This function lets obtain the tokenID from an address. 
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _addressSD is the address to obtain the tokenID from it.
-    /// @return The tokenID of the token bound to the device that generates _addressSD.
-    function tokenFromBCA(address _addressSD) external view returns (uint256);
+    /// @param _addressSA is the address to obtain the tokenID from it.
+    /// @return The tokenID of the token bound to the asset that generates _addressSA.
+    function tokenFromBCA(address _addressSA) external view returns (uint256);
     
-    /// @notice This function lets know the owner of the token from the address of the device bound to the token.
+    /// @notice This function lets know the owner of the token from the address of the asset bound to the token.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _addressSD is the address to obtain the owner from it.
-    /// @return The owner of the token bound to the device that generates _addressSD.
-    function ownerOfFromBCA(address _addressSD) external view returns (address);
+    /// @param _addressSA is the address to obtain the owner from it.
+    /// @return The owner of the token bound to the asset that generates _addressSA.
+    function ownerOfFromBCA(address _addressSA) external view returns (address);
     
     /// @notice This function lets know the user of the token from its tokenID.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _tokenId is the tokenID of the SmartNFT bound to the device.
+    /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @return The user of the token from its _tokenId.
     function userOf(uint256 _tokenId) external view returns (address);
     
-    /// @notice This function lets know the user of the token from the address of the device bound to the token.
+    /// @notice This function lets know the user of the token from the address of the asset bound to the token.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _addressSD is the address to obtain the user from it.
-    /// @return The user of the token bound to the device that generates _addressSD.
-    function userOfFromBCA(address _addressSD) external view returns (address);
+    /// @param _addressSA is the address to obtain the user from it.
+    /// @return The user of the token bound to the asset that generates _addressSA.
+    function userOfFromBCA(address _addressSA) external view returns (address);
     
     /// @notice This function lets know how many tokens are assigned to a user.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
