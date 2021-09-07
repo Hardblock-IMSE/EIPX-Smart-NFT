@@ -20,16 +20,10 @@ ERC-721 NFTs are designed to represent passive assets, which only have an owner 
 
 ## Specification
 This kind of non-fungible token is designed to represent a secure smart asset with the capacity of generating its own BCA and, hence, interacting with the blockchain. Besides, this SmartNFT can assign the token to a user and establish secure communication channels with the owner and user. SmartNFTs must be considered as improved ERC721 tokens.
- 
-In order to avoid asset counterfeiting, it is important that the private key of the asset from which its BCA is derived could not be known by anyone except for the asset itself. This can be achieved for example in an IoT devices by using a PUF or a trusted module like a ¿Trusted Platform Module? (TPM). Only the device manufacturer can generate a new SmartNFT linked to the identity of the device. The manufacturer is in charge of compiling an providing the trusted firmmware to generate the device BCA. After executing a secure boot, the device can upload the owner and user firmwares. Owner and user firmwares cannot extract imformation from the device private key because they cannot overwrite the bootloader layer described by the manufacturer. To ensure this, the manufacturer firmware can be signed and the signature can be checked in a secure boot process. The owner is in charge of assigning a user to the token (the owner itself can be assigned as user). Only a user can use the token.
- 
-In order to complete a token transaction, a new owner must carry out a mutual authentication process offchain with the asset and onchain with the token, by using their blockchain accounts. Similarly, a new user must carry out a mutual authentication process. SmartNFTs define how the authentication processes start and finish. These autentication processes allow deriving fresh session cryptographic keys for secure communication between assets and owners, and between assets and users. Therefore, the trustworthiness of the assets can be traced even if new owners and users manage them. These processes are described below.
 
-A smart asset, for example an IoT device, is a dynamic asset with several operating modes, which are represented by states in SmartNFTs. In particular, the states defining if the asset has been engaged or not with an owner or with a user deserve attention (for example, in the case of an IoT device, because the software to be executed by the device, which should be verified prior to be executed, is different). Hence, we propose the addition of the SmartNFT attribute "state" and propose that the operating mode of the asset should be in correspondence with its token state. We consider four main states of the token. The state "Waiting for owner" defines the situation whenever the token is created or transferred to a new owner but asset and owner have not verified mutually yet. Once they verify each other, the asset recognizes its owner and the state of its token changes to "Engaged with owner". In this state, the owner can transfer the token to a user. If the token is transferred to a user that coincides with the owner, the token state changes to "Engaged with user" and the asset is ready to operate in its application, obeying the commands from its user. Otherwise, the token changes its state to "Waiting for user". Once the user and the asset are verified mutually, the token changes its state to "Engaged with user". From this state, the token can be transferred to another user, thus returning to "Waiting for user" state. To cope with a user that could not reply, the token can be transferred to another user if its state is "Waiting for user". From all the states, the token can be transferred to another owner, thus returning to "Waiting for owner" state. Figure 1 illustrates the state diagram of the token. The state changes are controlled by token functions as explained below.
- 
-![Figure 1 : State diagram of the token](/Images/Figure1.jpg)
- 
-| Type | Name of variable | Defined by ERC-721 | Optional |
+As an improvement on the ERC721 token, the user management system is proposed, through the use of the "user" attribute, and the possibility of bind a Smart Asset to a token through the use of the "asset" attribute. Both attributes are Ethereum addresses that will interact with the smart contract. The following attributes are presented for the token:
+
+ | Type | Name of variable | Defined by ERC-721 | Optional |
 |--|--|--|--|
 | uint256 | tokenId | Yes | No |
 | address | owner | Yes | No |
@@ -43,8 +37,22 @@ A smart asset, for example an IoT device, is a dynamic asset with several operat
 | uint256 | dataEngagement | No | Yes |
 | uint256 | timeStamp | No | No |
 | uint256 | timeout | No | No |
+
+As you can see, asset and user are optional attributes. To facilitate the widespread use of this token, it can implement one or both of the enhancements. Therefore, despite being optional attributes, at least one of the two attributes should be used. The atributes do not need to be given in an specific order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (aprovedForAll) is an attribute more related to the owner than to the token.
  
-The atributes do not need to be given in an specific order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (aprovedForAll) is an attribute more related to the owner than to the token. 
+In the case of using only the user attribute, two states are defined, this state is simply used as a flag to know whether or not a user is assigned. Figure 1 shows the corresponding states in a flow chart. When a token is created, transferred or deallocated, the token should be set automatically as “notAssigned”. Only when it is assigned to a valid user then it should be changed to the "userAssigned" state.
+ 
+![Figure 1 : Flow chart of the states of token with user defined](/Images/Figure1.jpg)
+  
+In the case of defining the asset attribute but not the user attribute, then states are defined according to whether it is waiting for authentication with the owner or that it has already been authenticated by the owner. The process of changing from one state to another is shown in Figure 2 using a flow chart. When a token is created or transferred to a new owner, then the token goes to the "waitingForOwner" state. In this state, the token is waiting for authentication by the owner to finalize or confirm the transfer. Once authenticated, the token goes to the "engagedWithOwner" state.
+
+![Figure 2 : Flow chart of the states of token with asset defined](/Images/Figure2.jpg)
+ 
+ Finally, if both the Owner and User attributes are defined. The states are defined according to whether or not it has been authenticated by both the owner and the user (waitingForOwner, engagedWithOnwer, waitingForUser and engagedWithUser respectively). In figure 3 a flow chart showing all possible state changes. As can be seen in terms of what corresponds to the owner's states, it is practically the same as in figure 2. The only change is that when a token is no longer assigned to a user, it also goes to the “EngagedWithOwner” state. Since this state is identified as waiting to be assigned to a user. When a user is assigned, from the states "EngagedWithOwner", "waitingForUser" or "engagedWithUser", the token goes to the state "waitingForUser". Once authenticated, the token will go to the "engagedWithUser" state and the user will be able to use the token or asset.
+
+ ![Figure 3 : Flow chart of the states of token with user and asset defined](/Images/Figure3.jpg)
+ 
+In order to complete a token transaction, a new owner must carry out a mutual authentication process offchain with the asset and onchain with the token, by using their blockchain accounts. Similarly, a new user must carry out a mutual authentication process. SmartNFTs define how the authentication processes start and finish. These autentication processes allow deriving fresh session cryptographic keys for secure communication between assets and owners, and between assets and users. Therefore, the trustworthiness of the assets can be traced even if new owners and users manage them. These processes are described below.
  
 ```solidity
 pragma solidity ^0.8.0;
