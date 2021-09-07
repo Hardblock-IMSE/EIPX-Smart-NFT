@@ -172,7 +172,7 @@ pragma solidity ^0.8.0;
     /// @param _addressUser is the address of the user.
     /// @param _addressOwner is the address of the owner.
     /// @return the number of tokens assigned to a user from an owner.
-    function userBalanceOfAnOwner(address _addressUser, address _addressOwner) external view returns (uint256) ¡¡ OJO EN EL PAPER APARECE address !!;;
+    function userBalanceOfAnOwner(address _addressUser, address _addressOwner) external view returns (uint256);
 }
 ```
 This interface is an extension of the ERC721, is compatible with the standard, and needs the ERC721 interface. ERC721 interface is available in https://eips.ethereum.org/EIPS/eip-721. Then, metadata and enumeration extensions are compatible and included in this draft.
