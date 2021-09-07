@@ -167,7 +167,7 @@ pragma solidity ^0.8.0;
     /// @return the number of tokens assigned to a user.
     function userBalanceOf(address _addressUser) external view returns (uint256);
     
-    /// @notice This function lets know how many tokens of a particular owner are assigned to a user.
+    /// @notice This function lets know how many tokens of an particular owner are assigned to a user.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
     /// @param _addressUser is the address of the user.
     /// @param _addressOwner is the address of the owner.
