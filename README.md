@@ -40,7 +40,7 @@ Asset and user are optional attributes but at least one of them should be used i
  
 In the case of using only the attribute user, two states define if the token is assigned or not to a user. Figure 1 shows the corresponding states in a flow chart. When a token is created, transferred or unassigned, the token should be set automatically as “notAssigned”. Only when it is assigned to a valid user the state should be changed to "userAssigned" state.
  
-![Figure 1 : Flow chart of the states of token with user defined](/Images/Figure1.jpg)
+![Figure 1 : Flow chart of the states of token with user defined](/Images/Figure1.png)
   
 In the case of defining asset attribute but not the user attribute, the states are defined according to it is waiting for authentication with the owner or that it has already been authenticated by the owner. The process of changing from one state to another is shown in Figure 2 using a flow chart. When a token is created or transferred to a new owner, then the token change its state to "waitingForOwner". In this state, the token is waiting for authentication by the owner to finalize or confirm the transfer. Once the asset is authenticated, the token change it state to "engagedWithOwner".
 
