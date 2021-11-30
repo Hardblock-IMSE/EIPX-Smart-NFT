@@ -36,21 +36,21 @@ This kind of non-fungible token is designed to represent a secure smart asset wi
 | uint256 | timeStamp | No | No |
 | uint256 | timeout | No | No |
 
-Asset and user are optional attributes but at least one of them should be used in a SmartNFT. The atributes do not need to be given in an specific order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (approvedForAll) is an attribute more related to the owner than to the token.
+The atributes do not need to be given in an specific order. The designer of the smart contract defines the order. Like in the ERC721, the role of operator (approvedForAll) is an attribute more related to the owner than to the token.
  
-In the case of using only the attribute user, two states define if the token is assigned or not to a user. Figure 1 shows the corresponding states in a flow chart. When a token is created, transferred or unassigned, the token should be set automatically as “notAssigned”. Only when it is assigned to a valid user the state should be changed to "userAssigned" state.
+Asset and user are optional attributes but at least one of them should be used in a SmartNFT. In the case of using only the attribute user, two states define if the token is assigned or not to a user. Figure 1 shows the corresponding states in a flow chart. When a token is created, transferred or unassigned, the token state is set to “notAssigned”. If the token is assigned to a valid user, the state is set to "userAssigned".
  
-![Figure 1 : Flow chart of the states of token with user defined](/Images/Figure1.png)
+![Figure 1 : Flow chart of the token states with user defined (and asset undefined)](/Images/Figure1.png)
   
-In the case of defining asset attribute but not the user attribute, the states are defined according to it is waiting for authentication with the owner or that it has already been authenticated by the owner. The process of changing from one state to another is shown in Figure 2 using a flow chart. When a token is created or transferred to a new owner, then the token change its state to "waitingForOwner". In this state, the token is waiting for authentication by the owner to finalize or confirm the transfer. Once the asset is authenticated, the token change it state to "engagedWithOwner".
+In the case of defining the asset attribute but not the user attribute, two states define if the token is waiting for authentication with the owner or authentication has finished successfully. Figure 2 shows the corresponding states in a flow chart. When a token is created or transferred to a new owner, then the token change its state to "waitingForOwner". In this state, the token is waiting for authentication by the owner. Once the asset is authenticated, its associated token changes its state to "engagedWithOwner".
 
-![Figure 2 : Flow chart of the states of token with asset defined](/Images/Figure2.jpg)
+![Figure 2 : Flow chart of the token states with asset defined (and user undefined)](/Images/Figure2.jpg)
  
-Finally, if both the asset and user attributes are defined. The states are defined according to the asset has been authenticated or not by the owner or the user (waitingForOwner, engagedWithOnwer, waitingForUser and engagedWithUser respectively). In figure 3 a flow chart showing all possible state changes. As can be seen in terms of what corresponds to the states about the owner, it is practically the same as in figure 2. The only change is that when a token is no longer assigned to a user, it also goes to the “EngagedWithOwner” state. Since this state is identified as waiting to be assigned to a user. When a user is assigned, from the states "EngagedWithOwner", "waitingForUser" or "engagedWithUser", the token change its state to "waitingForUser". Once authenticated, the token set to the "engagedWithUser" state and the user will be able to use the token or asset.
+Finally, if both the asset and user attributes are defined. The states define if the asset has been authenticated or not by the owner or the user (waitingForOwner, engagedWithOwner, waitingForUser and engagedWithUser respectively). The flow chart in Figure 3 shows all the possible state changes. The states related to the owner are the same as in Figure 2. The difference is that from the state “EngagedWithOwner”, the token can be assigned to a user. When a user is assigned, from the states "EngagedWithOwner", "waitingForUser" or "engagedWithUser", the token change its state to "waitingForUser". Once the asset is authenticated by the user, the state of its associated token is set to "engagedWithUser", and the user is able to use the token or asset.
 
- ![Figure 3 : Flow chart of the states of token with user and asset defined](/Images/Figure3.jpg)
+ ![Figure 3 : Flow chart of the token states with user and asset defined](/Images/Figure3.jpg)
  
-In order to complete a token transaction, a new owner must carry out a mutual authentication process offchain with the asset and onchain with the token, by using their blockchain accounts. Similarly, a new user must carry out a mutual authentication process. SmartNFTs define how the authentication processes start and finish. These autentication processes allow deriving fresh session cryptographic keys for secure communication between assets and owners, and between assets and users. Therefore, the trustworthiness of the assets can be traced even if new owners and users manage them. These processes are described below.
+In order to complete a token transaction, a new owner must carry out a mutual authentication process off-chain with the asset and on-chain with the token, by using their blockchain accounts. Similarly, a new user must carry out a mutual authentication process. SmartNFTs define how the authentication processes start and finish. These autentication processes allow deriving fresh session cryptographic keys for secure communication between assets and owners, and between assets and users. Therefore, the trustworthiness of the assets can be traced even if new owners and users manage them. These processes are described below.
  
 ```solidity
 pragma solidity ^0.8.0;
@@ -63,29 +63,29 @@ pragma solidity ^0.8.0;
     event UserAssigned(uint256 indexed tokenID, address indexed _addressUser);
     
     /// @dev This emits when user and asset finish mutual authentication process successfully.
-    ///  This event emits when both the user and the asset prove they share a secret communication channel.
+    ///  This event emits when both the user and the asset prove they share a secure communication channel.
     event UserEngaged(uint256 indexed tokenID);
     
     /// @dev This emits when owner and asset finish mutual authentication process successfully.
-    ///  This event emits when both the owner and the asset prove they share a secret communication channel.
+    ///  This event emits when both the owner and the asset prove they share a secure communication channel.
     event OwnerEngaged(uint256 indexed tokenID);
     
     /// @dev This emits when it is checked that the timeout has expired.
     ///  This event emits when the timestamp of the SmartNFT is not updated in timeout.
     event TimeoutAlarm(uint256 indexed tokenID);
 
-    /// @notice This function defines how the NFT is assigned as utility of a new user if user is defined.
-    /// @dev Only the owner of the SmartNFT can assign a user provided. If asset is defined, then the state of the token must be
+    /// @notice This function defines how the NFT is assigned as utility of a new user (if user is defined).
+    /// @dev Only the owner of the SmartNFT can assign a user. If asset is defined, then the state of the token must be
     /// "engagedWithOwner","waitingForUser" or "engagedWithUser" and this function changes the state of the token defined by "_tokenID" to
-    /// "waitingForUser". If asset is not defined, set status tu "userAssigned". In both case, this function sets the parameter 
+    /// "waitingForUser". If asset is not defined, the state is set to "userAssigned". In both cases, this function sets the parameter 
     /// "addressUser" to "_addressUser". 
     /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _addressUser is the address of the new user.
     function setUser(uint256 _tokenId, address _addressUser) external; 
 
     /// @notice This function defines the initialization of the mutual authentication process between the owner and the asset.
-    /// @dev Only the owner of the token can start this authentication process if asset is defined, This proccess provided that 
-    /// the state of the token is "waitingForOwner". The function does not change the state of the token and saves "_dataEngagement" 
+    /// @dev Only the owner of the token can start this authentication process if asset is defined and the state of the token is "waitingForOwner".
+    /// The function does not change the state of the token and saves "_dataEngagement" 
     /// and "_hashK_O" in the parameters of the token.
     /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _dataEngagement is the public data proposed by the owner for the agreement of the shared key.
@@ -95,14 +95,14 @@ pragma solidity ^0.8.0;
     /// @notice This function completes the mutual authentication process between the owner and the asset.
     /// @dev Only the asset bound to the token can finish this authentication process provided that the state of the token is
     /// "waitingForOwner" and dataEngagement is different from 0. This function compares hashK_O saved in
-    /// the token with hashK_A. If they are equal then the state of token changes to "engagedWithOwner", dataEngagement is set to 0,
+    /// the token with hashK_A. If they are equal then the state of the token changes to "engagedWithOwner", dataEngagement is set to 0,
     /// and the event "OwnerEngaged" is emitted.
     /// @param _hashK_A is the hash of the secret generated by the asset to share with the owner.
     function ownerEngagement(uint256 _hashK_A) external; 
  
     /// @notice This function defines the initialization of the mutual authentication process between the user and the asset.
-    /// @dev Only the user of the token can start this authentication process if asset and user are defined. This proccess provided
-    /// that the state of token is "waitingForUser". The function does not change the state of the token and saves "_dataEngagement" 
+    /// @dev Only the user of the token can start this authentication process if asset and user are defined and
+    /// the state of the token is "waitingForUser". The function does not change the state of the token and saves "_dataEngagement" 
     /// and "_hashK_U" in the parameters of the token.
     /// @param _tokenId is the tokenID of the SmartNFT bound to the asset.
     /// @param _dataEngagement is the public data proposed by the user for the agreement of the shared key.
@@ -111,8 +111,8 @@ pragma solidity ^0.8.0;
     
     /// @notice This function completes the mutual authentication process between the user and the asset.
     /// @dev Only the asset bound to the token can finish this authentication process provided that the state of the token is
-    /// "waitingForUser" and dataEngage if different from 0. This function compares hashK_U saved in
-    /// the token with hashK_A. If they are equal then the state of token changes to "engagedWithUser", dataEngagement is set to 0,
+    /// "waitingForUser" and dataEngagement if different from 0. This function compares hashK_U saved in
+    /// the token with hashK_A. If they are equal then the state of the token changes to "engagedWithUser", dataEngagement is set to 0,
     /// and the event "UserEngaged" is emitted.
     /// @param _hashK_A is the hash of the secret generated by the asset to share with the user.
     function userEngagement(uint256 _hashK_A) external; 
@@ -144,7 +144,7 @@ pragma solidity ^0.8.0;
     /// @notice This function lets know the owner of the token from the address of the asset bound to the token.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
     /// @param _addressSA is the address to obtain the owner from it.
-    /// @return The owner of the token bound to the asset that generates _addressSA.
+    /// @return the owner of the token bound to the asset that generates _addressSA.
     function ownerOfFromBCA(address _addressSA) external view returns (address);
     
     /// @notice This function lets know the user of the token from its tokenID.
