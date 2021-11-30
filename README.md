@@ -10,7 +10,7 @@ created: 2021-04-22
 requires (*optional): 721
 ---
 ## Simple Summary
-A standar interface of Smart Non Fungible Tokens representing smart assets (such as secure IoT devices) that generate their own blockchain accounts.
+A standar interface of Smart Non Fungible Tokens representing smart assets (such as secure IoT devices) that can generate their own blockchain accounts and obey to users.
 
 ## Abstract
 The novelty introduced in this EIP is the proposal of smart Non-Fungible Tokens, named as SmartNFTs, to represent smart assets such as IoT devices, which are physical smart assets. Smart assets can have a blockchain account (BCA) address to participate actively in the blockchain transactions, they are also identified as the utility of a user, they can establish secure communication channels with owners and users, and they operate dynamically with several operating modes associated with their token states. A smart NFT is physically bound to a smart asset, for example an IoT device, because the device is the only one able to generate its BCA address from its private key. The physical asset is the only one in possesion of its private key. This can be ensured, for example, if the IoT device does not store the private key but uses a physical unclonable function (PUF) that allows recovering its private key. SmartNFTs extend ERC-721 Non-Fungible Tokens (which only allow representing assets by a unique identifier, as a possession of an owner). 
