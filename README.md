@@ -1,6 +1,7 @@
 ---
 eip: <to be assigned>
 title: Smart Non Fungible Token (SmartNFT)
+description: A standar interface of smart non-fungible tokens representing smart assets (such as secure IoT devices) that can generate their own blockchain accounts and obey to users.
 author: Javier Arcenegui <arcenegui@imse-cnm.csic.es>, Rosario Arjona <arjona@imse-cnm.csic.es>, Roberto Román <roman@imse-cnm.csic.es> and Iluminada Baturone <lumi@imse-cnm.csic.es>
 discussions-to: https://github.com/Hardblock-IMSE/Smart-Non-Fungible-Token
 status: Draft
@@ -9,6 +10,7 @@ category (*only required for Standards Track): ERC
 created: 2021-04-22
 requires (*optional): 721
 ---
+ 
 ## Simple Summary
 A standar interface of smart non-fungible tokens representing smart assets (such as secure IoT devices) that can generate their own blockchain accounts and obey to users.
 
