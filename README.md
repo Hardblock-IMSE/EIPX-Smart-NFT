@@ -217,7 +217,7 @@ K<sub>U</sub>=PK<sub>DEV</sub>*SK<sub>UD</sub>=(SK<sub>DEV</sub>*P)*SK<sub>UD</s
 
 Using the function userEngagement, the asset sends the K<sub>UD</sub> obtained and if it is the same as K<sub>U</sub>, then the state of the token changes to "Engaged with user" and the event UserEngaged is sent. Once the asset receives the event, it changes its operation mode to "Engaged with user". This process is shown in Figure 5. From this moment, the asset can be managed by the user. 
  
- ![Figure 5: Steps in a successful user and asset muthual authentication process](/Fig5_rev.png)
+ ![Figure 5: Steps in a successful user and asset muthual authentication process](images/Fig5_rev.png)
 
 Since the establishment of a shared secret is very important for a secure communication, we propose the inclusion of the attributes hashK_OD, hashK_UD, and dataEngage in the SmartNFT. The first two attributes define, respectively, the hash of the secret shared between the asset and its owner and between the asset and its user. Assets, owners, and users should check they are using the correct shared secrets. The attribute dataEngagement defines the public data needed for the agreement. If the mutual authentication fails, dataEngagement allows detecting which parts failed.
   
