@@ -7,8 +7,8 @@ discussions-to: https://github.com/Hardblock-IMSE/EIPX-Smart-NFT/
 status: draft
 type: standards track
 category: erc
-created: 2021-04-22
-requires: 721
+created: 2021-12-03
+requires: 165, 721
 ---
 
 ## Abstract
