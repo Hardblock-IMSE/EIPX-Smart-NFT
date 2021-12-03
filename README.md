@@ -3,16 +3,13 @@ eip: <to be assigned>
 title: Smart Non Fungible Token (SmartNFT)
 description: A standar interface of smart non-fungible tokens representing smart assets (such as secure IoT devices) that can generate their own blockchain accounts and obey to users.
 author: Javier Arcenegui <arcenegui@imse-cnm.csic.es>, Rosario Arjona <arjona@imse-cnm.csic.es>, Roberto Román <roman@imse-cnm.csic.es> and Iluminada Baturone <lumi@imse-cnm.csic.es>
-discussions-to: https://github.com/Hardblock-IMSE/Smart-Non-Fungible-Token
-status: Draft
-type: Standards Track
-category (*only required for Standards Track): ERC
+discussions-to: https://github.com/Hardblock-IMSE/EIPX-Smart-NFT/
+status: draft
+type: standards track
+category: erc
 created: 2021-04-22
-requires (*optional): 721
+requires: 721
 ---
- 
-## Simple Summary
-A standar interface of smart non-fungible tokens representing smart assets (such as secure IoT devices) that can generate their own blockchain accounts and obey to users.
 
 ## Abstract
 The novelty introduced in this EIP is the proposal of smart Non-Fungible Tokens (NFTs), named as SmartNFTs, to represent smart assets such as IoT devices, which are physical smart assets. Smart assets can have a blockchain account (BCA) address to participate actively in the blockchain transactions, they are also identified as the utility of a user, they can establish secure communication channels with owners and users, and they operate dynamically with several operating modes associated with their token states. A SmartNFT is physically bound to a smart asset, for example an IoT device, because the device is the only one able to generate its BCA address from its private key. The physical asset is the only one in possesion of its private key. This can be ensured, for example, if the IoT device does not store the private key but uses a Physical Unclonable Function (PUF) that allows recovering its private key. SmartNFTs extend ERC-721 non-fungible tokens (which only allow representing assets by a unique identifier, as a possession of an owner). 
