@@ -201,16 +201,17 @@ pragma solidity ^0.8.0;
 This interface is an extension of the [ERC-721](./eip-712.md), is compatible with the standard, and needs the ERC-721 interface. Then, metadata and enumeration extensions are compatible and included in this draft. Like EIP-165 could be required, supportsInterface SHOULD BE overridden to include the interfaceId of this EIP.
  
 ## Rationale
-The number of NFT with user management or tied with fisical asset are growing. Therefore it is essential to establish an standard capable of loading all these options working togethers or separately. The incorporation of user or asset to the NFT is optional. It does not make sense that it does not have either of the two options in this NFT since it would be an ERC-721 token. The possibility of generating two separate interfaces has been proposed, however, some functions such as "StartUserEngagement" would only be available if both are implemented, so a single interface with all the options is proposed.
+The number of NFT with user management or tied with physical asset are growing. Therefore, it is essential to establish a standard capable of loading all these options working together or separately. The incorporation of user or asset to the NFT is optional. It does not make sense that it does not have either of the two options in this NFT since it would be an ERC-721 token. The possibility of generating two separate interfaces has been proposed, however, some functions such as "StartUserEngagement" would only be available if both are implemented, so a single interface with all the options is proposed.
 
-**Authentication
-The authentication is a off chain process. This EIP propose use the Smart Conctract to verify the autentication using a shared key that has been explained. Asset and owner/user must share the hash of this key to verify this key, avoiding a malicious threat.
+**Authentication**
+The authentication is an off-chain process. This EIP propose use the Smart Contract to verify the authentication using a shared key that has been explained. Asset and owner/user must share the hash of this key to verify this key, avoiding a malicious threat.
 
-**Life Signal
-This EIP propose a life signal to check that the asset is work correctly and avoid a malicious owner or user could use the asset infinitely. FOr this reason some timers attributes are proposed.
+**Life Signal**
+This EIP propose a life signal to check that the asset is work correctly and avoid a malicious owner or user could use the asset infinitely. For this reason, some attributes are proposed.
 
-**ERC-721 based
-The [ERC-721](./eip-712.md) is a strong base for any NTF, neverthekess users managment and authentication process are not considered. This EIP propose an update of [ERC-721](./eip-712.md) respecting the backwards compatibility.
+**ERC-721 based**
+The [ERC-721](./eip-712.md) is a strong base for any NTF, nevertheless user management and authentication process are not considered. This EIP propose an update of [ERC-721](./eip-712.md) respecting the backwards compatibility.
+
   
 ## Backwards Compatibility
 This implementation is an extension of the ERC-721 standard, then it is not only compatible with the standard, but also is a way to improve some of the current NFT tokens based on the ERC-721 standard.
