@@ -4,13 +4,13 @@ This EIP proposes a interface for non-fungible token that represent physical ass
 ## Motivation
 This SmartNFT was developed because the ERC-721 NFT does not include the users of an asset (only include the owners) and does not include the Ethereum address of the asset. Smart assets (for example, IoT devices) are increasing nowadays. If smart assets are tied to SmartNFTs then they can be managed in a secure and traceable way. The reason is that SmartNFTs, unlike ERC-721 NFTs, allow establishing secure communication channels between the physical asset and its owner and its user. In this way, assets, owners and users can be assured of exchanging information with trusted parties.
 
-**Secure Physical Asset Tied to a SmartNFT:**
+**Secure Physical Asset Tied to a SmartNFT**
 Current non-fungible tokens are associated with passive assets, either virtual or physical things, but they do not include any standardized mechanism to tie the non-fungible token to the asset. Tying physical assets to NFTs is interesting because the asset can know anytime its owner, user, operating mode, and how to establish secure communication channels with its owner and user. The assets, owners and users are identified by their Ethereum addresses and the Ethereum address of the asset can be obtained from a unique physical property of the physical asset (for example, using a physically unclonable function). The asset can be an active part in any transfer of ownership and use. In addition, the asset is smart, for example to not obey orders from a non-authorized user, or to be inoperative if a succesful authentication with the user or the owner has not been fullfilled.
 
-**User Management Mechanism:**
+**User Management Mechanism**
 SmartNFTs allow implementing a new and useful user management mechanism. In the last few years, many projects concerning assets sharing (for example, vehicles) have been created and developed. SmartNFTs incorporate the Ethereum account of the user as another attribute of the token in order to distinguish between the user, who employs the asset for a specific application, and the owner, who assigns the token to users. Hence, both users and owners of an asset can be traced.
 
-**Secure Key Exchange Mechanism:**
+**Secure Key Exchange Mechanism**
 The engagement of the asset with an owner or a user is carried out after a mutual authentication protocol (for example, based on elliptic curve Diffie-Hellman key exchange protocol). This protocol can be employed for a key agreement between the asset and its owner, in the one side, and between the asset and its user, in the other side. 
 
 ## Specification
@@ -187,17 +187,17 @@ pragma solidity ^0.8.0;
 ## Rationale
 The NFTs that demand user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the NFT is optional. However, it does not make sense that the SmartNFT does not include any of the two Ethereum addresses since the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
 
-**SmartNFT:**
+**SmartNFT**
 This EIP proposes a non-fungible token tied to a physical asset. The asset is able to generate an Ethereum address and authenticate its user and its owner. Hence, the asset can be considered as a smart asset associated with an NFT. If the asset and the token are regarded as one thing, we can talk about a SmartNFT. The demand for SmartNFTs, which allow user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish a standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the SmartNFT is optional. However, it does not make sense that the SmartNFT does not include any of them because, in that case, the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
 
-**Authentication:**
+**Authentication**
 This EIP proposes using the smart contract to verify the mutual authentication process between the physical asset and the owner or the user by verifying the hash of a shared key.
 
-**Tie Time:**
+**Tie Time**
 This EIP proposes including the attribute timestamp (to register in Ethereum the last time that the physical asset checkeds the tie with its token) and the attribute timeout (to register the maximum delay time established for the physical asset to prove again the tie). These attributes avoid that a malicious owner or user could use the asset endlessly.
 When the asset calls `updateTimestamp`, the smart contract must call `block.timestamp`, which provides current block timestamp as seconds since Unix epoch. For this reason, `timeout`  must be provided in seconds.
 
-**ERC-721-based:**
+**ERC-721-based**
 [EIP-721](./eip-721.md) is the most commonly-used standard for generic NFTs. This EIP extends ERC-721 for backwards compatibility.
   
 ## Backwards Compatibility
