@@ -53,7 +53,7 @@ K<sub>U_D</sub> = SK<sub>DEV</sub>*PK<sub>U_D</sub>
 
 If everything is correctly done, K<sub>U</sub> and K<sub>U_D</sub> are the same since:
 
-K<sub>U</sub>=PK<sub>DEV</sub>*SK<sub>U_D</sub>=(SK<sub>DEV</sub>*P)*SK<sub>U_D</sub>= SK<sub>DEV</sub>*(SK<sub>U_D</sub>*P)=SK<sub>DEV</sub>*PK<sub>U_D</sub>
+K<sub>U</sub>=PK<sub>DEV</sub>\*SK<sub>U_D</sub>=(SK<sub>DEV</sub>\*P)\*SK<sub>U_D</sub>= SK<sub>DEV</sub>\*(SK<sub>U_D</sub>\*P)=SK<sub>DEV</sub>\*PK<sub>U_D</sub>
 
 Using the function `userEngagement`, the asset sends the K<sub>U_D</sub> obtained and if it is the same as K<sub>U</sub>, then the state of the token changes to `engagedWithUser` and the event `UserEngaged` is sent. Once the asset receives the event, it changes its operation mode to `engagedWithUser`. This process is shown in `Figure 5`. From this moment, the asset can be managed by the user. 
 
