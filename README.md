@@ -39,7 +39,7 @@ K<sub>O_D</sub> = SK<sub>DEV</sub>*PK<sub>O_D</sub>
 
 If everything is correctly done, K<sub>O</sub> and K<sub>O_D</sub> are the same since:
 
-K<sub>O</sub>=PK<sub>DEV</sub>*SK<sub>O_D</sub>=(SK<sub>DEV</sub>*P)*SK<sub>O_D</sub>= SK<sub>DEV</sub>*(SK<sub>O_D</sub>*P)=SK<sub>DEV</sub>*PK<sub>O_D</sub>
+K<sub>O</sub>=PK<sub>DEV</sub>\*SK<sub>O_D</sub>=(SK<sub>DEV</sub>\*P)\*SK<sub>O_D</sub>= SK<sub>DEV</sub>\*(SK<sub>O_D</sub>\*P)=SK<sub>DEV</sub>\*PK<sub>O_D</sub>
 
 Using the function `ownerEngagement`, the asset sends the K<sub>O_D</sub> obtained and if it is the same as K<sub>O</sub>, then the state of the token changes to `engagedWithOwner` and the event `OwnerEngaged` is sent. Once the asset receives the event, it changes its operation mode to `engagedWithOwner`. This process is shown in `Figure 4`. From this moment, the asset can be managed by the owner. 
 
