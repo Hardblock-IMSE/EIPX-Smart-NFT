@@ -148,15 +148,15 @@ pragma solidity ^0.8.0;
     
     /// @notice This function lets obtain the tokenID from an address. 
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _addressSA is the address to obtain the tokenID from it.
-    /// @return tokenID of the token bound to the asset that generates _addressSA.
-    function tokenFromBCA(address _addressSA) external view returns (uint256);
+    /// @param _addressAsset is the address to obtain the tokenID from it.
+    /// @return tokenID of the token bound to the asset that generates _addressAsset.
+    function tokenFromBCA(address _addressAsset) external view returns (uint256);
     
     /// @notice This function lets know the owner of the token from the address of the asset bound to the token.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _addressSA is the address to obtain the owner from it.
-    /// @return owner of the token bound to the asset that generates _addressSA.
-    function ownerOfFromBCA(address _addressSA) external view returns (address);
+    /// @param _addressAsset is the address to obtain the owner from it.
+    /// @return owner of the token bound to the asset that generates _addressAsset.
+    function ownerOfFromBCA(address _addressAsset) external view returns (address);
     
     /// @notice This function lets know the user of the token from its tokenID.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
@@ -166,9 +166,9 @@ pragma solidity ^0.8.0;
     
     /// @notice This function lets know the user of the token from the address of the asset bound to the token.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
-    /// @param _addressSA is the address to obtain the user from it.
-    /// @return user of the token bound to the asset that generates _addressSA.
-    function userOfFromBCA(address _addressSA) external view returns (address);
+    /// @param _addressAsset is the address to obtain the user from it.
+    /// @return user of the token bound to the asset that generates _addressAsset.
+    function userOfFromBCA(address _addressAsset) external view returns (address);
     
     /// @notice This function lets know how many tokens are assigned to a user.
     /// @dev Everybody can call this function. The code executed only reads from the blockchain.
@@ -186,16 +186,16 @@ pragma solidity ^0.8.0;
 ```
  
 ## Rationale
-The NFTs that demand user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the NFT is optional. However, it does not make sense that the SmartNFT does not include any of the two Ethereum addresses since the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
+The demand for SmartNFTs, which allow user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish a standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the SmartNFT is optional. However, it does not make sense that the SmartNFT does not include any of them because, in that case, the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
 
 **SmartNFT**
-This EIP proposes a non-fungible token tied to a physical asset. The asset is able to generate an Ethereum address and authenticate its user and its owner. Hence, the asset can be considered as a smart asset associated with an NFT. If the asset and the token are regarded as one thing, we can talk about a SmartNFT. The demand for SmartNFTs, which allow user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish a standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the SmartNFT is optional. However, it does not make sense that the SmartNFT does not include any of them because, in that case, the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
+This EIP proposes a non-fungible token tied to a physical asset. The asset is able to generate an Ethereum address and authenticate its user and its owner. Hence, the asset can be considered as a smart asset associated with an NFT. If the asset and the token are regarded as one thing, we can talk about a SmartNFT. 
 
 **Authentication**
 This EIP proposes using the smart contract to verify the mutual authentication process between the physical asset and the owner or the user by verifying the hash of a shared key.
 
 **Tie Time**
-This EIP proposes including the attribute timestamp (to register in Ethereum the last time that the physical asset checkeds the tie with its token) and the attribute timeout (to register the maximum delay time established for the physical asset to prove again the tie). These attributes avoid that a malicious owner or user could use the asset endlessly.
+This EIP proposes including the attribute timestamp (to register in Ethereum the last time that the physical asset checked the tie with its token) and the attribute timeout (to register the maximum delay time established for the physical asset to prove again the tie). These attributes avoid that a malicious owner or user could use the asset endlessly.
 When the asset calls `updateTimestamp`, the smart contract must call `block.timestamp`, which provides current block timestamp as seconds since Unix epoch. For this reason, `timeout`  must be provided in seconds.
 
 **ERC-721-based**
