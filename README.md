@@ -17,18 +17,18 @@ The engagement of the asset with an owner or a user is carried out after a mutua
 The SmartNFT attributes `addressAsset` and `addressUser` are, respectively, the Ethereum addresses of the physical asset and the user. They are optional attributes but at least one of them should be used in a SmartNFT. In the case of using only the attribute `addressUser`, two states define if the token is assigned or not to a user. `Figure 1` shows these states in a flow chart. When a token is created, transferred or unassigned, the token state is set to `notAssigned`. If the token is assigned to a valid user, the state is set to `userAssigned`.
 
 ![Figure 1 : Flow chart of the token states with `addressUser` defined (and `addressAsset` undefined)](https://github.com/Hardblock-IMSE/EIPX-Smart-NFT/blob/main/blob/assets/eip-4519/images/Figure1.png)  
-  
-  
+
+
 In the case of defining the attribute `addressAsset` but not the attribute `addressUser`, two states define if the token is waiting for authentication with the owner or if the authentication has finished successfully. `Figure 2` shows these states in a flow chart. When a token is created or transferred to a new owner, then the token changes its state to `waitingForOwner`. In this state, the token is waiting for the mutual authentication between the asset and the owner. Once authentication is finished successfully, the token changes its state to `engagedWithOwner`.
 
 ![Figure 2 : Flow chart of the token states with `addressAsset` defined (and `addressUser` undefined)](https://github.com/Hardblock-IMSE/EIPX-Smart-NFT/blob/main/blob/assets/eip-4519/images/Figure2.png)  
- 
+
 Finally, if both the attributes `addressAsset` and `addressUser` are defined, the states of the SmartNFT define if the asset has been engaged or not with the owner or the user (`waitingForOwner`, `engagedWithOwner`, `waitingForUser` and `engagedWithUser`). The flow chart in `Figure 3` shows all the possible state changes. The states related to the owner are the same as in `Figure 2`. The difference is that, at the state `engagedWithOwner`, the token can be assigned to a user. If a user is assigned (the token being at states `engagedWithOwner`, `waitingForUser` or `engagedWithUser`), then the token changes its state to `waitingForUser`. Once the asset and the user authenticate each other, the state of the token is set to `engagedWithUser`, and the user is able to use the asset.
 
  ![Figure 3 : Flow chart of the token states with `addressUser` and asset defined](https://github.com/Hardblock-IMSE/EIPX-Smart-NFT/blob/main/blob/assets/eip-4519/images/Figure3.png)  
- 
+
 In order to complete the ownership transfer of a token, the new owner must carry out a mutual authentication process with the asset, which is off-chain with the asset and on-chain with the token, by using their Ethereum addresses. Similarly, a new user must carry out a mutual authentication process with the asset to complete a use transfer. SmartNFTs define how the authentication processes start and finish. These authentication processes allow deriving fresh session cryptographic keys for secure communication between assets and owners, and between assets and users. Therefore, the trustworthiness of the assets can be traced even if new owners and users manage them. 
- 
+
 When the SmartNFT is created or when the ownership is transferred, the token state is `waitingForOwner`. Assuming that the asset is an electronic physical asset, it saves in its memory the owner address and sets its operating mode to `waitingForOwner`. The owner generates a pair of keys using the elliptic curve secp256k1 and the primitive element P used on this curve: a secret key SK<sub>O_A</sub> and a Public Key PK<sub>O_A</sub>, so that PK<sub>O_A</sub> = SK<sub>O_A</sub>*P. To generate the shared key between the owner and the asset, K<sub>O</sub>, the public key of the asset, PK<sub>A</sub>, is employed as follows:
 
 K<sub>O</sub>=PK<sub>A</sub>*SK<sub>O_A</sub>
@@ -64,7 +64,6 @@ Since the establishment of a shared secret key is very important for a secure co
 
 ```solidity
 pragma solidity ^0.8.0;
-
  /// @title SmartNFT: Extension of ERC-721 Non-Fungible Token Standard. 
 ///  Note: the ERC-165 identifier for this interface is 0x8a68abe3
  interface SmartNFT is ERC721/*,ERC165*/{
@@ -84,7 +83,6 @@ pragma solidity ^0.8.0;
     /// @dev This emits when it is checked that the timeout has expired.
     ///  This event emits when the timestamp of the SmartNFT is not updated in timeout.
     event TimeoutAlarm(uint256 indexed tokenId);
-
     /// @notice This function defines how the NFT is assigned as utility of a new user (if "addressUser" is defined).
     /// @dev Only the owner of the SmartNFT can assign a user. If "addressAsset" is defined, then the state of the token must be
     /// "engagedWithOwner","waitingForUser" or "engagedWithUser" and this function changes the state of the token defined by "_tokenId" to
@@ -93,7 +91,6 @@ pragma solidity ^0.8.0;
     /// @param _tokenId is the tokenId of the SmartNFT tied to the asset.
     /// @param _addressUser is the address of the new user.
     function setUser(uint256 _tokenId, address _addressUser) external payable; 
-
     /// @notice This function defines the initialization of the mutual authentication process between the owner and the asset.
     /// @dev Only the owner of the token can start this authentication process if "addressAsset" is defined and the state of the token is "waitingForOwner".
     /// The function does not change the state of the token and saves "_dataEngagement" 
@@ -187,26 +184,20 @@ pragma solidity ^0.8.0;
  
 ## Rationale
 The demand for SmartNFTs, which allow user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish a standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the SmartNFT is optional. However, it does not make sense that the SmartNFT does not include any of them because, in that case, the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
-
 **SmartNFT**
 This EIP proposes a non-fungible token tied to a physical asset. The asset is able to generate an Ethereum address and authenticate its user and its owner. Hence, the asset can be considered as a smart asset associated with an NFT. If the asset and the token are regarded as one thing, we can talk about a SmartNFT. 
-
 **Authentication**
 This EIP proposes using the smart contract to verify the mutual authentication process between the physical asset and the owner or the user by verifying the hash of a shared key.
-
 **Tie Time**
 This EIP proposes including the attribute timestamp (to register in Ethereum the last time that the physical asset checked the tie with its token) and the attribute timeout (to register the maximum delay time established for the physical asset to prove again the tie). These attributes avoid that a malicious owner or user could use the asset endlessly.
 When the asset calls `updateTimestamp`, the smart contract must call `block.timestamp`, which provides current block timestamp as seconds since Unix epoch. For this reason, `timeout`  must be provided in seconds.
-
 **ERC-721-based**
 [EIP-721](./eip-721.md) is the most commonly-used standard for generic NFTs. This EIP extends ERC-721 for backwards compatibility.
   
 ## Backwards Compatibility
 This standard is an extension of ERC-721. It is fully compatible with both of the commonly used optional extensions (`IERC721Metadata` and `IERC721Enumerable`) mentioned in the EIP-721 standard.
-
 ## Test Cases
 The test cases presented in the paper shown below are available [here] (../assets/eip-4519/PoC_SmartNFT/README.md).
-
 ## Reference Implementation
 A first version was presented in a paper of the Special Issue **Security, Trust and Privacy in New Computing Environments** of **Sensors** journal of **MDPI** editorial. The paper, entitled [Secure Combination of IoT and Blockchain by Physically Binding IoT Devices to Smart Non-Fungible Tokens Using PUFs](../assets/eip-4519/sensors-21-03119.pdf), was written by the same authors of this EIP.
 
