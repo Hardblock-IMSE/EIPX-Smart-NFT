@@ -33,7 +33,7 @@ When the SmartNFT is created or when the ownership is transferred, the token sta
 
 K<sub>O</sub>=PK<sub>A</sub>*SK<sub>O_A</sub>
 
-Using the function `startOwnerEngagement`, the owner saves PK<sub>O_A</sub> as the attribute `dataEngagement` and the hash of K<sub>O</sub> as the attribute `hashK_OA` in the SmartNFT. The owner sends PK<sub>O_A</sub> signed to the asset. The asset checks the signature of the owner and, if signature is correct, the asset uses PKO_A to calculate:
+Using the function `startOwnerEngagement`, the owner saves PK<sub>O_A</sub> as the attribute `dataEngagement` and the hash of K<sub>O</sub> as the attribute `hashK_OA` in the SmartNFT. The owner sends PK<sub>O_A</sub> signed to the asset. The asset checks the signature of the owner and, if signature is correct, the asset uses PK<sub>O_A</sub> to calculate:
 
 K<sub>A</sub> = SK<sub>A</sub>*PK<sub>O_A</sub>
 
