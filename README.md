@@ -60,7 +60,7 @@ Using the function `userEngagement`, the asset sends the hash of K<sub>A</sub> o
  ![Figure 5: Steps in a successful user and asset mutual authentication process](https://github.com/Hardblock-IMSE/EIPX-Smart-NFT/blob/main/blob/assets/eip-4519/images/Figure5.png)  
 
 Since the establishment of a shared secret key is very important for a secure communication, SmartNFTs include the attributes 
-`hashK_OA`, `hashK_UA` and `dataEngagement`. The first two attributes define, respectively, the hash of the secret key shared between the asset and its owner and between the asset and its user. Assets, owners and users should check they are using the correct shared secret keys. The attribute `dataEngagement` defines the public data needed for the agreement. If the mutual authentication fails, `dataEngagement` allows detecting which part failed. 
+`hashK_OA`, `hashK_UA` and `dataEngagement`. The first two attributes define, respectively, the hash of the secret key shared between the asset and its owner and between the asset and its user. Assets, owners and users should check they are using the correct shared secret keys. The attribute `dataEngagement` defines the public data needed for the agreement. 
 
 ```solidity
 pragma solidity ^0.8.0;
