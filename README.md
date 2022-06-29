@@ -184,6 +184,7 @@ pragma solidity ^0.8.0;
  
 ## Rationale
 The demand for SmartNFTs, which allow user management and a tie to a physical asset are growing (for example, in the context of the Internet of Things). Therefore, it is essential to establish a standard capable of including all these options working together or separately. The incorporation of an Ethereum address of the user or an Ethereum address of a physical asset to the SmartNFT is optional. However, it does not make sense that the SmartNFT does not include any of them because, in that case, the SmartNFT would be an ERC-721 token. Since some functions such as `startUserEngagement` are available only if both addresses are implemented, a single interface with all the options is proposed.
+
 **SmartNFT**
 This EIP proposes a non-fungible token tied to a physical asset. The asset is able to generate an Ethereum address and authenticate its user and its owner. Hence, the asset can be considered as a smart asset associated with an NFT. If the asset and the token are regarded as one thing, we can talk about a SmartNFT. 
 **Authentication**
