@@ -187,6 +187,7 @@ The demand for SmartNFTs, which allow user management and a tie to a physical as
 
 **SmartNFT**
 This EIP proposes a non-fungible token tied to a physical asset. The asset is able to generate an Ethereum address and authenticate its user and its owner. Hence, the asset can be considered as a smart asset associated with an NFT. If the asset and the token are regarded as one thing, we can talk about a SmartNFT. 
+
 **Authentication**
 This EIP proposes using the smart contract to verify the mutual authentication process between the physical asset and the owner or the user by verifying the hash of a shared key.
 **Tie Time**
