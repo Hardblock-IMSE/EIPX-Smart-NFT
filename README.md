@@ -194,6 +194,7 @@ This EIP proposes using the smart contract to verify the mutual authentication p
 **Tie Time**
 This EIP proposes including the attribute timestamp (to register in Ethereum the last time that the physical asset checked the tie with its token) and the attribute timeout (to register the maximum delay time established for the physical asset to prove again the tie). These attributes avoid that a malicious owner or user could use the asset endlessly.
 When the asset calls `updateTimestamp`, the smart contract must call `block.timestamp`, which provides current block timestamp as seconds since Unix epoch. For this reason, `timeout`  must be provided in seconds.
+
 **ERC-721-based**
 [EIP-721](./eip-721.md) is the most commonly-used standard for generic NFTs. This EIP extends ERC-721 for backwards compatibility.
   
