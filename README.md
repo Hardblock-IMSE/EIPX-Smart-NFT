@@ -190,6 +190,7 @@ This EIP proposes a non-fungible token tied to a physical asset. The asset is ab
 
 **Authentication**
 This EIP proposes using the smart contract to verify the mutual authentication process between the physical asset and the owner or the user by verifying the hash of a shared key.
+
 **Tie Time**
 This EIP proposes including the attribute timestamp (to register in Ethereum the last time that the physical asset checked the tie with its token) and the attribute timeout (to register the maximum delay time established for the physical asset to prove again the tie). These attributes avoid that a malicious owner or user could use the asset endlessly.
 When the asset calls `updateTimestamp`, the smart contract must call `block.timestamp`, which provides current block timestamp as seconds since Unix epoch. For this reason, `timeout`  must be provided in seconds.
